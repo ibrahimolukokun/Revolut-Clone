@@ -1,0 +1,54 @@
+/* 1 — Load Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+/* 2 — Tailwind’s core styles */
+@import "tailwindcss";
+
+/* 3 — Design Tokens  */
+@theme {
+  /* === colours ============================= */
+  --color-primary:     #DB1C30;   /* Yellow  */
+  --color-secondary:   #8B0000;   /* Orange */
+  --color-accent:      #B96053;
+  --color-background:  #F5FFFE;   /* Light gray */
+  --color-dark:        #191C1F;   /* Near‑black */
+
+  /* === typography ========================== */
+  --font-sans:  "Inter", sans-serif;
+  --font-serif: "Merriweather", serif;
+}
+
+/* 4 — Utilities  */
+@utility container {
+  margin-inline: auto;   /* centre it */
+  padding-inline: 2rem;  /* DEFAULT   */
+
+  @variant sm  { padding-inline: 2rem; }
+  @variant lg  { padding-inline: 4rem; }
+  @variant xl  { padding-inline: 5rem; }
+  @variant 2xl { padding-inline: 6rem; }
+}
+
+/* 5 — Base styles */
+@layer base {
+  .button {
+    @apply inline-block px-4 py-2 rounded-md text-white font-semibold;
+    background-color: var(--color-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  .button:hover {
+    background-color: var(--color-secondary);
+    color: var(--color-dark);
+  } 
+  .button-outline {
+    @apply inline-block px-4 py-2 rounded-md text-primary font-semibold;
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
+    background-color: transparent;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  .button-outline:hover {
+    background-color: var(--color-primary);
+    color: var(--color-background);
+    }
+  }
