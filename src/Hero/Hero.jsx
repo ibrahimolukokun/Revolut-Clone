@@ -7,7 +7,7 @@ const Hero = () => {
     <section className="relative w-full min-h-screen flex items-center justify-center text-white">
 
       {/* Hero Content */}
-      <div className="relative z-10 px-4 sm:px-8 md:px-16 lg:px-20">
+      <div className="z-10 fixed top-44">
         <h1 className="text-4xl sm:text-8xl font-bold mb-4">
           CHANGE THE WAY YOU <br /> <span className="text-white">MONEY</span>
         </h1>
@@ -19,19 +19,36 @@ const Hero = () => {
         </button>
       </div>
 
+      <div className='flex items-center justify-center'>
       {/* Person PNG Image */}
       <img
         src={personImg}
         alt="Person"
-        className="absolute bottom-0 md:bottom-[-40px] z-[5] w-[280px] sm:w-[500px] md:w-[1600px]"
+        className="absolute inset-0 w-full h-full object-cover z-[-1]"
+        style={{
+          transitionTimingFunction: 'cubic-bezier(0.35, 0, 0, 1)',
+          transitionProperty: 'transform',
+          transitionDuration: '0ms',
+          transitionDelay: '100ms',
+        }}
       />
 
       {/* Floating Card */}
       <img
         src={cardImg}
         alt="Card"
-        className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-20 w-[250px] sm:w-[300px] border-4 rounded-2xl border-gray-300"
+        className="absolute bottom-0 left-1/2 transform -translate-x-1/2 origin-bottom border-3 rounded-2xl"
+        style={{
+          width: '44vh',
+          height: '60vh',
+          transitionTimingFunction: 'cubic-bezier(0.35, 0, 0, 1)',
+          transitionProperty: 'transform',
+          transitionDuration: '0ms',
+          transitionDelay: '100ms',
+          transform: ' scale(1)',
+        }}
       />
+      </div>
     </section>
   );
 };
