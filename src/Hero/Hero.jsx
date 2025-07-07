@@ -1,8 +1,9 @@
 import React from 'react';
 import personImg from '../assets/HeroMuse.png'; // transparent PNG of person
-import cardImg from '../assets/card.png';     // optional: screenshot or component
+import cardImg from '../assets/card.png';    // optional: screenshot or component
 
 const Hero = () => {
+
   return (
     <section className="relative w-full min-h-screen flex items-center justify-center text-white">
 
@@ -14,7 +15,7 @@ const Hero = () => {
         <p className="text-lg sm:text-xl max-w-lg mb-6 text-white/90">
           Home or away, local or global — move freely <br /> between countries and currencies. Sign up for <br /> free, in a tap.
         </p>
-        <button className="bg-dark text-white px-6 py-3 rounded-full">
+        <button className="bg-dark text-white px-6 py-3 rounded-full hover:bg-gray-800 transition">
           Download the app
         </button>
       </div>
