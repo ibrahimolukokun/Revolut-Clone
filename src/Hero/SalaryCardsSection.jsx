@@ -35,7 +35,7 @@ const SalaryCardsSection = () => {
             <img
               src={heroMuse}
               alt="Muse Background"
-              className="absolute inset-0 w-full h-full object-contain pointer-events-none"
+              className="absolute inset-0 w-full h-full object-cover pointer-events-none scale-200"
             />
             <img
               src={card2}

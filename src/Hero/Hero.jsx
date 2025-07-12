@@ -38,7 +38,7 @@ const Hero = () => {
       <img
         src={cardImg}
         alt="Card"
-        className="absolute bottom-0 left-1/2 transform -translate-x-1/2 origin-bottom border-3 rounded-2xl"
+        className="absolute bottom-0 left-1/2 transform -translate-x-1/2 origin-bottom border-3 border-gray-200 rounded-2xl"
         style={{
           width: '44vh',
           height: '60vh',
