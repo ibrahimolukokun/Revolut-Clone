@@ -1,78 +1,60 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import HeroImg from '../assets/Hero_bg.png';
+
 import Hero from '../Hero/Hero';
 import SalaryCardsSection from '../Hero/SalaryCardsSection';
 
-const SCROLL_THRESHOLD = 10; 
-
 const Home = () => {
-  const heroRef = useRef(null);
-  const salaryRef = useRef(null);
-  const isSnapping = useRef(false);
-  const prevScrollY = useRef(0);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const isAnimating = useRef(false);
+
+  const sections = [
+    { id: 0, component: <Hero /> },
+    { id: 1, component: <SalaryCardsSection /> },
+  ];
 
   useEffect(() => {
-    prevScrollY.current = window.pageYOffset;
+    const handleWheel = (e) => {
+      if (isAnimating.current) return;
 
-    const handleScroll = () => {
-      if (isSnapping.current) return;
-
-      const scrollY = window.pageYOffset;
-      const viewportH = window.innerHeight;
-      const heroEl = heroRef.current;
-      const salaryEl = salaryRef.current;
-
-      const heroBottom = heroEl.offsetTop + heroEl.clientHeight;
-      const salaryTop = salaryEl.offsetTop;
-
-      const isScrollingUp = scrollY < prevScrollY.current;
-      prevScrollY.current = scrollY;
-
-      // Snap down (scroll ↓)
-      if (!isScrollingUp && scrollY + viewportH >= heroBottom - SCROLL_THRESHOLD) {
-        isSnapping.current = true;
-        salaryEl.scrollIntoView({ behavior: 'smooth' });
-      }
-      // Snap up (scroll ↑)
-      else if (isScrollingUp && scrollY <= salaryTop + SCROLL_THRESHOLD) {
-        isSnapping.current = true;
-        heroEl.scrollIntoView({ behavior: 'smooth' });
+      if (e.deltaY > 0 && activeIndex < sections.length - 1) {
+        setActiveIndex((prev) => prev + 1);
+        isAnimating.current = true;
+      } else if (e.deltaY < 0 && activeIndex > 0) {
+        setActiveIndex((prev) => prev - 1);
+        isAnimating.current = true;
       }
 
-      if (isSnapping.current) {
-        setTimeout(() => {
-          isSnapping.current = false;
-        }, 600);
-      }
+      setTimeout(() => {
+        isAnimating.current = false;
+      }, 1000); // lock scroll briefly
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    return () => window.removeEventListener('wheel', handleWheel);
+  }, [activeIndex]);
 
   return (
-    <>
-      <section
-        ref={heroRef}
-        className="w-full h-screen top-0 flex items-center justify-center overflow-hidden"
-      >
-          <div className='absolute inset-0 sm:px-2'>
-        <img
-          src={HeroImg}
-          alt="Cloud Background"
-          className="absolute inset-0 w-full h-full object-cover z-[-1]"
-        />
-        <Hero />
-        </div>
-      </section>
-
-      <section
-        ref={salaryRef}
-        className="w-full h-screen relative z-10"
-      >
-        <SalaryCardsSection />
-      </section>
-    </>
+    
+    <div className="w-full h-screen overflow-hidden relative">
+      
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={activeIndex}
+          initial={{ opacity: 0, y: activeIndex > 0 ? 100 : -100 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: activeIndex > 0 ? -100 : 100 }}
+          transition={{
+            duration: 0.8,
+            ease: [0.35, 0, 0, 1],
+          }}
+          className="absolute top-0 left-0 w-full h-full"
+        >
+          {sections[activeIndex].component}
+        </motion.div>
+      </AnimatePresence>
+    </div>
   );
 };
 

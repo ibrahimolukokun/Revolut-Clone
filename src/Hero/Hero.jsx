@@ -1,11 +1,20 @@
 import React from 'react';
-import personImg from '../assets/HeroMuse.png'; // transparent PNG of person
-import cardImg from '../assets/card.png';    // optional: screenshot or component
+import personImg from '../assets/HeroMuse.png'; 
+import cardImg from '../assets/card.png';    
+import HeroImg from '../assets/Hero_bg.png';
 
 const Hero = () => {
 
   return (
     <section className="relative w-full min-h-screen flex items-center justify-center text-white">
+
+      <div className='absolute top-0 inset-0 sm:px-2'>
+              <img
+                src={HeroImg}
+                alt="Cloud Background"
+                className="fixed top-0 w-full h-full object-cover z-[-1]"
+              />
+          </div>
 
       {/* Hero Content */}
       <div className="z-10 fixed top-44">
